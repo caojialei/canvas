@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>画一个矩形</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;"></canvas>
+    <script>
+        //1.找到canvas元素
+        var canvas = document.getElementById("myCanvas");
+        //2.创建context对象
+        var ctx = canvas.getContext('2d');
+        //3.设置图案颜色，可以是css颜色，渐变或者图案（默认#000）
+        ctx.fillStyle='yellow';
+        //4.图形填充方式fillrect(x,y,width,height)
+        ctx.fillRect(0,0,150,150)
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滑动杆控制图片大小</title>
+    <style>
+        canvas{margin: 50px auto;display: block;border: 1px solid grey}
+        input{margin: 0 auto;display: block;}
+    </style>
+</head>
+<body style="background: #000">
+    <canvas id="canvas">您的浏览器尚不支持canvas</canvas>
+    <canvas id="watermark-canvas" style="display: none">您的浏览器尚不支持canvas</canvas>
+    <input type="range" id="scale-range" min="0.5" max="3.0" step="0.01" value="1.0">    <!--HTML5新增：滑动杆-->
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var slider = document.getElementById("scale-range");
+        var image = new Image();
+
+        //水印canvas
+        var watermarkCanvas = document.getElementById("watermark-canvas");
+        var watermarkCtx = watermarkCanvas.getContext("2d");
+
+        window.onload = function () {
+            //画布大小
+            canvas.width = 1200;
+            canvas.height = 750;
+
+            var scale = slider.value;
+
+            image.src = "images/img.jpg";
+            image.onload = function(){  //必须等image.onload（图片加载完成）之后绘制图片
+//              ctx.drawImage(image,0,0);
+//              ctx.drawImage(image,600,200,400,400,0,0,canvas.width,canvas.height);
+                drawImageByScale(scale);
+                slider.onmousemove = function () {
+                    scale = slider.value;
+                    drawImageByScale(scale);
+                };
+            };
+
+            //setup watermarkCanvas
+            watermarkCanvas.width = 250;
+            watermarkCanvas.height = 100;
+
+            watermarkCtx.font = "bold 30px Arial";
+            watermarkCtx.fillStyle = "rgba(255,255,255,.7)";
+            watermarkCtx.textBaseline = "middle";
+            watermarkCtx.fillText("== By Sally ==" ,20 , 50);
+        };
+
+        //滑动杆控制图片大小
+        function drawImageByScale(scale) {
+            var imageWidth = 1200 * scale;
+            var imageHeight = 750 * scale;
+
+            var dx = canvas.width/2 - imageWidth/2;     //以画布为参照物
+            var dy = canvas.height/2 - imageHeight/2;
+            ctx.clearRect(0,0,canvas.width,canvas.height);  //清空画布
+            ctx.drawImage(image,dx,dy,imageWidth,imageHeight);
+            ctx.drawImage(watermarkCanvas, canvas.width-watermarkCanvas.width,
+                                           canvas.height-watermarkCanvas.height)
+        }
+
+
+    </script>
+</body>
+</html>

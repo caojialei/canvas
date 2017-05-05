@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{margin: 50px auto;display: block;border: 1px solid grey}
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    window.onload = function(){
+        canvas.width = 1200;
+        canvas.height = 600;
+        var image = new Image();
+        image.src = "images/img.jpg";
+        imageWidth = image.width / 2;
+        imageHeight = image.height / 2;
+        image.onload =  function () {
+            ctx.drawImage(image,0,0);
+            ctx.drawImage(image,0,0,imageWidth,imageHeight)
+        }
+    }
+</script>
+</body>
+</html>

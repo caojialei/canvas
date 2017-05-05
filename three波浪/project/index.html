@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Coming Soon | Treedom</title>
+	<meta name="keywords" content="深圳市青木文化传播有限公司,青木文化传播,青木,文化传播,设计,创意,treedom,td" >
+ 	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" /> 
+	<link rel="stylesheet" href="css/style.css" />
+	<!--[if lt IE 8]>
+    <div class="m-browser-mask"></div>
+    <div class='m-browser-box'>
+        <div class="title">亲，您的浏览器过于陈旧，无法呈现HTML5完美效果。</div>
+        <div class="subtitle">我们建议您使用以下现代浏览器的最新版本。</div>
+        <ul class="list">
+            <li><a title='谷歌Chrome浏览器' href="http://www.google.cn/chrome/" target='_blank'>
+                <span class="i-chrome"></span>
+                <span class="text">谷歌Chrome浏览器</span>
+            </a></li>
+            <li><a title='火狐浏览器' href="http://www.firefox.com.cn/download/" target='_blank'>
+                <span class="i-firefox"></span>
+                <span class="text">火狐浏览器</span>
+            </a></li>
+            <li><a title='Safar浏览器' href="http://w.x.baidu.com/alading/anquan_soft_down_normal/12966" target='_blank'>
+                <span class="i-safari"></span>
+                <span class="text">Safari浏览器</span>
+            </a></li>
+        </ul>
+    </div>
+    <![endif]-->
+</head>	
+ 
+<body>
+	<div style="display:none">
+		<script type="text/javascript">
+		var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254080863'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1254080863' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+	<div class="wrap" id="wrap"></div>
+	<script type="text/javascript" src="js/lib/jquery-1.11.1.min.js"></script>
+	
+	<!--three.js-->
+	<script src="js/lib/three.min.js"></script>
+	<script src="js/lib/renderers/Projector.js"></script>
+	<script src="js/lib/renderers/CanvasRenderer.js"></script>
+	<script src="js/lib/stats.min.js"></script>
+	<script src="js/particle.js?2"></script>
+
+	<script>
+	 (function(){
+	 	//背景
+	 	var particle = new CreateParticle();
+		//适配
+		var checkWindow = function(){
+			var winWidth = $(window).width();
+			if (winWidth <= 480) {
+				$('.section-box').addClass('shrink');
+				$('.section-box').removeClass('move');
+			}else if (winWidth < 800) {
+				$('.section-box').addClass('move');
+				$('.section-box').removeClass('shrink');
+			}else {
+				$('.section-box').removeClass('move shrink');
+			}
+		}
+		checkWindow();
+		$(window).on('resize', checkWindow);
+	 })();
+	</script>
+</body>
+</html>

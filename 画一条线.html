@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>画一条线</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;"></canvas>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle="red";
+        ctx.moveTo(0,0);    //定义线条开始的坐标
+        ctx.lineTo(200,100);    //定义线条结束的坐标
+        ctx.stroke();   //绘制线条必须使用"link"的方法
+    </script>
+</body>
+</html>

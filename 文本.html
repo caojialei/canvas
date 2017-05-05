@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文本</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;"></canvas>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.font = "30px Arial";
+        ctx.textBaseline="middle";
+        ctx.fillText("Hello World",20,50)
+    </script>
+</body>
+</html>
