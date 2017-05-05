@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>放大镜查看图片</title>
+    <style>
+        canvas{margin: 50px auto;display: block;border: 1px solid grey}
+        input{margin: 0 auto;display: block;}
+    </style>
+</head>
+<body style="background: #000">
+    <canvas id="canvas">您的浏览器尚不支持canvas</canvas>
+    <canvas id="offCanvas" style="display: none"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var offCanvas = document.getElementById("offCanvas");
+        var offCtx = offCanvas.getContext("2d");
+
+        var image = new Image();
+        var isMouseDown = false;
+        var scale;
+
+        window.onload = function () {
+            //画布大小
+            canvas.width = 1200;
+            canvas.height = 750;
+
+            image.src = "images/img-lg.jpg";
+            image.onload = function(){  //必须等image.onload（图片加载完成）之后绘制图片
+                offCanvas.width = image.width;
+                offCanvas.height = image.height;
+                scale = offCanvas.width / canvas.width;     //原图的比例为canvas的整数倍
+
+                ctx.drawImage(image,0,0,canvas.width,canvas.height);    // lg图片缩放版
+                offCtx.drawImage(image,0,0);
+            };
+
+            //获取鼠标在canvas上的坐标
+            function windowToCanvas(x, y) {
+                var bbox = canvas.getBoundingClientRect();    //canvas包围盒，包含canvas画布距离以及位置信息
+                return { x: x-bbox.left, y: y-bbox.top}
+            }
+
+
+            canvas.onmousedown = function (e) {
+                e.preventDefault();
+                var point = windowToCanvas(e.clientX,e.clientY);
+                isMouseDown = true;
+                drawCanvasWithMangnifier( true , point);    //绘制整个canvas，连带放大镜
+            };
+
+            canvas.onmousemove = function (e) {
+                e.preventDefault();
+                if(isMouseDown == true){
+                    var point = windowToCanvas(e.clientX,e.clientY);
+                    console.log(point.x,point.y);
+                    drawCanvasWithMangnifier( true , point);
+                }
+            };
+            canvas.onmouseup = function (e) {
+                e.preventDefault();
+                isMouseDown = false;
+                drawCanvasWithMangnifier( false );
+            };
+            canvas.onmouseout = function (e) {
+                e.preventDefault();
+                isMouseDown = false;
+                drawCanvasWithMangnifier( false );
+            };
+
+            function drawCanvasWithMangnifier(isShowMangnifier, point) {
+                ctx.clearRect( 0 , 0 , canvas.width , canvas.height );
+                ctx.drawImage( image , 0 , 0 , canvas.width , canvas.height );
+                if( isShowMangnifier == true ){
+                    drawMangnifier( point );
+                }
+            }
+
+            function drawMangnifier( point) {
+                var imageLG_cx = point.x * scale;
+                var imageLG_cy = point.y * scale;
+                var mr = 200;
+                var sx = imageLG_cx - mr;
+                var sy = imageLG_cy - mr;
+                var dx = point.x - mr;
+                var dy = point.y - mr;
+
+                ctx.save();     //不干扰别的图像，进行保存
+
+                ctx.lineWidth = 10.0;
+                ctx.strokeStyle = "#069";
+
+                ctx.beginPath();
+                ctx.arc(point.x , point.y , mr , 0 , Math.PI*2 );
+                ctx.stroke();
+                ctx.clip();
+
+                ctx.drawImage(offCanvas , sx , sy , 2*mr , 2*mr , dx , dy , 2*mr , 2*mr );
+                ctx.restore();      //恢复
+            }
+        };
+
+
+    </script>
+</body>
+</html>
